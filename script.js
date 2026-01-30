@@ -55,7 +55,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     // Sending the request
-    await fetch("https://script.google.com/macros/s/AKfycbxKyvrskkOQcE69rQxi7vDhGB-gDZJR_-k5_9r_eab0Jc7uC6QfCLl20J7RwFqRFwWjTQ/exec", {
+    await fetch("https://script.google.com/macros/s/AKfycbydRYF7t-pwckXfRTG4IsYYwRYfdKr0SPOsbtibfNBzw9E4u8GaQ4hrdSkId_j7GAdBtA/exec", {
       method: "POST",
       mode: "no-cors", // Essential for Google Apps Script
       headers: {
