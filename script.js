@@ -22,7 +22,7 @@ countInput.addEventListener("input", () => {
             <option value="">Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
-            <option value="Other">Other</option>
+            <option value="Prefer not to say">Prefer not to say</option>
           </select>
           
           <select name="hostel_${i}" required>
@@ -65,7 +65,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     // IMPORTANT: Ensure this matches your LATEST Google Apps Script Deployment URL
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxKyvrskkOQcE69rQxi7vDhGB-gDZJR_-k5_9r_eab0Jc7uC6QfCLl20J7RwFqRFwWjTQ/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxkWaO0YgYy7AbLUuuinqZ2jFRb7G4jq7iCE1z0UFYqFxjnawCyFH8i9G4mZpGPmJYakw/exec";
 
     await fetch(scriptURL, {
       method: "POST",
