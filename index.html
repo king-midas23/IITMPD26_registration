@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IITM PD | College Registration</title>
+  <title>IITM PD | Registration</title>
   <style>
     :root {
       --rust-red: #a43a28;
       --cream: #fdf5e6;
       --off-white: #faf9f6;
       --text-dark: #2d2d2d;
-      --shadow: 4px 4px 0px rgba(164, 58, 40, 0.2); /* Retro hard shadow */
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     body {
       background-color: var(--off-white);
-      /* Retro Serif Font Stack */
+      /* Retro Serif Font */
       font-family: 'Georgia', 'Times New Roman', Times, serif; 
       color: var(--text-dark);
       margin: 0;
@@ -27,11 +27,11 @@
     .container {
       background-color: var(--cream);
       width: 100%;
-      max-width: 500px;
+      max-width: 650px; /* Slightly wider to accommodate the row layout */
       padding: 30px;
-      border-radius: 4px; /* Sharper corners for retro look */
+      border-radius: 15px;
       box-shadow: var(--shadow);
-      border: 2px solid var(--rust-red);
+      border-top: 10px solid var(--rust-red);
     }
 
     h2 {
@@ -40,9 +40,9 @@
       margin-top: 0;
       text-transform: uppercase;
       letter-spacing: 2px;
-      border-bottom: 2px solid var(--rust-red);
-      padding-bottom: 10px;
       font-weight: 900;
+      border-bottom: 1px solid rgba(164, 58, 40, 0.2);
+      padding-bottom: 15px;
     }
 
     .form-group {
@@ -55,18 +55,16 @@
       margin-bottom: 8px;
       font-size: 0.9rem;
       color: var(--rust-red);
-      text-transform: uppercase;
     }
 
-    /* Consistent Input Styling */
+    /* Standardized Input Styling */
     input[type="text"],
     input[type="number"],
-    input[type="email"],
     select {
       width: 100%;
       padding: 12px;
-      border: 2px solid #d2c1a5; /* Muted cream border */
-      border-radius: 0px; /* Square edges for retro feel */
+      border: 2px solid #d2c1a5;
+      border-radius: 8px; /* Rounded edges */
       box-sizing: border-box;
       font-size: 1rem;
       font-family: inherit;
@@ -77,67 +75,38 @@
     input:focus, select:focus {
       outline: none;
       border-color: var(--rust-red);
-      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(164, 58, 40, 0.1);
     }
 
+    /* Participant Card Styling */
     .participant-card {
-      background: rgba(255, 255, 255, 0.5);
-      padding: 15px;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 20px;
+      border-radius: 12px;
       margin-bottom: 15px;
-      border: 1px dashed var(--rust-red);
+      border: 1px solid rgba(164, 58, 40, 0.15);
     }
 
     h4 {
-      margin: 0 0 10px 0;
+      margin: 0 0 12px 0;
       color: var(--rust-red);
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Flex container for equal-sized inputs */
+    .input-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap; /* Wraps neatly on mobile */
+    }
+
+    .input-row > * {
+      flex: 1;
+      min-width: 160px; /* Prevents inputs from getting too skinny */
     }
 
     button {
       width: 100%;
-      background-color: var(--rust-red);
-      color: var(--cream);
-      padding: 14px;
-      border: 2px solid var(--rust-red);
-      font-size: 1.1rem;
-      font-weight: bold;
-      font-family: inherit;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 3px 3px 0px #5a1f16;
-      transition: all 0.1s;
-    }
-
-    button:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 4px 4px 0px #5a1f16;
-    }
-
-    button:active {
-      transform: translate(2px, 2px);
-      box-shadow: 0px 0px 0px #5a1f16;
-    }
-  </style>
-</head>
-<body>
-
-<div class="container">
-  <h2>IITM PD 2026</h2>
-  
-  <form id="regForm">
-    <div class="form-group">
-      <label for="college">College / University</label>
-      <input type="text" name="college" id="college" placeholder="Enter Institution Name" required>
-    </div>
-
-    <div class="form-group">
-      <label for="count">No. of Participants</label>
-      <input type="number" id="count" min="1" placeholder="0" required>
-    </div>
-
-    <div id="participants"></div>
-
-    <button type="submit">Submit Registration</button>
-  </form>
-</div>
+      background-color: var(--rust-red
