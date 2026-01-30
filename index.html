@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>IITM PD 2026 | Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IITM PD | Registration</title>
   <style>
     :root {
       --rust-red: #a43a28;
@@ -15,25 +15,23 @@
 
     body {
       background-color: var(--off-white);
-      /* Classic Retro Serif Font */
+      /* Retro Serif Font */
       font-family: 'Georgia', 'Times New Roman', Times, serif; 
       color: var(--text-dark);
       margin: 0;
       display: flex;
       justify-content: center;
-      padding: 15px;
+      padding: 20px;
     }
 
     .container {
       background-color: var(--cream);
       width: 100%;
-      max-width: 650px;
-      padding: 25px;
+      max-width: 650px; /* Slightly wider to accommodate the row layout */
+      padding: 30px;
       border-radius: 15px;
       box-shadow: var(--shadow);
       border-top: 10px solid var(--rust-red);
-      box-sizing: border-box;
-      margin-top: 20px;
     }
 
     h2 {
@@ -43,34 +41,32 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       font-weight: 900;
-      font-size: 1.6rem;
       border-bottom: 1px solid rgba(164, 58, 40, 0.2);
       padding-bottom: 15px;
     }
 
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
       font-weight: bold;
       margin-bottom: 8px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--rust-red);
-      text-transform: uppercase;
     }
 
-    /* Standardized Input Styling with 16px font for Mobile */
+    /* Standardized Input Styling */
     input[type="text"],
     input[type="number"],
     select {
       width: 100%;
       padding: 12px;
       border: 2px solid #d2c1a5;
-      border-radius: 8px;
+      border-radius: 8px; /* Rounded edges */
       box-sizing: border-box;
-      font-size: 16px; /* Prevents auto-zoom on iPhone */
+      font-size: 1rem;
       font-family: inherit;
       background-color: #fff;
       transition: all 0.2s ease;
@@ -89,12 +85,6 @@
       border-radius: 12px;
       margin-bottom: 15px;
       border: 1px solid rgba(164, 58, 40, 0.15);
-      animation: fadeIn 0.3s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     h4 {
@@ -105,16 +95,16 @@
       letter-spacing: 1px;
     }
 
-    /* Row Layout for Participant Details */
+    /* Flex container for equal-sized inputs */
     .input-row {
       display: flex;
       gap: 12px;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* Wraps neatly on mobile */
     }
 
     .input-row > * {
       flex: 1;
-      min-width: 140px; /* Forces stacking on very small screens */
+      min-width: 160px; /* Prevents inputs from getting too skinny */
     }
 
     button {
@@ -144,14 +134,16 @@
     button:disabled {
       background-color: #ccc;
       cursor: not-allowed;
-      opacity: 0.7;
     }
 
+    /* Responsive adjustments */
     @media (max-width: 480px) {
-      .input-row > * {
-        min-width: 100%; /* Full width stack on mobile */
+      .container {
+        padding: 20px;
       }
-      h2 { font-size: 1.3rem; }
+      .input-row > * {
+        min-width: 100%; /* Stacks fully on very small screens */
+      }
     }
   </style>
 </head>
@@ -162,13 +154,13 @@
   
   <form id="regForm">
     <div class="form-group">
-      <label for="college">College / University Name</label>
-      <input type="text" name="college" id="college" placeholder="Enter Institution" required>
+      <label for="college">College / University</label>
+      <input type="text" name="college" id="college" placeholder="Enter Institution Name" required>
     </div>
 
     <div class="form-group">
       <label for="count">Number of Participants</label>
-      <input type="number" id="count" min="1" max="50" placeholder="e.g. 3" required>
+      <input type="number" id="count" min="1" placeholder="e.g. 3" required>
     </div>
 
     <div id="participants">
@@ -178,97 +170,6 @@
   </form>
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const countInput = document.getElementById("count");
-  const container = document.getElementById("participants");
-  const form = document.getElementById("regForm");
-  const submitBtn = document.getElementById("submitBtn");
-
-  // Generate Participant Rows
-  countInput.addEventListener("input", () => {
-    const n = parseInt(countInput.value);
-    container.innerHTML = "";
-
-    if (!n || n < 1) return;
-
-    for (let i = 1; i <= n; i++) {
-      container.innerHTML += `
-        <div class="participant-card">
-          <h4>Participant ${i}</h4>
-          <div class="input-row">
-            <input name="name_${i}" placeholder="Full Name" required>
-            
-            <select name="gender_${i}" required>
-              <option value="">Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-            
-            <select name="hostel_${i}" required>
-              <option value="">Hostel</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </div>
-        </div>
-      `;
-    }
-  });
-
-  // Handle Form Submission
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    // Disable button and show loading state
-    submitBtn.disabled = true;
-    const originalText = submitBtn.innerText;
-    submitBtn.innerText = "SUBMITTING...";
-
-    const college = form.college.value;
-    const n = parseInt(countInput.value);
-    const participants = [];
-
-    for (let i = 1; i <= n; i++) {
-      participants.push({
-        name: form[`name_${i}`].value,
-        gender: form[`gender_${i}`].value,
-        hostel: form[`hostel_${i}`].value
-      });
-    }
-
-    const formData = new URLSearchParams();
-    formData.append("college", college);
-    formData.append("participants", JSON.stringify(participants));
-
-    try {
-      // Replace this URL with your latest Apps Script Deployment URL
-      const scriptURL = "https://script.google.com/macros/s/AKfycbxKyvrskkOQcE69rQxi7vDhGB-gDZJR_-k5_9r_eab0Jc7uC6QfCLl20J7RwFqRFwWjTQ/exec";
-
-      await fetch(scriptURL, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData.toString()
-      });
-
-      alert("Registration for " + college + " has been successfully submitted!");
-      
-      // Reset the form
-      form.reset();
-      container.innerHTML = "";
-      
-    } catch (error) {
-      console.error("Submission Error:", error);
-      alert("Submission failed. Please check your internet connection.");
-    } finally {
-      // Restore button
-      submitBtn.disabled = false;
-      submitBtn.innerText = originalText;
-    }
-  });
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
