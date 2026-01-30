@@ -18,7 +18,7 @@ countInput.addEventListener("input", () => {
           <option value="">Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Other">Other</option>
+          <option value="Prefer not to say">Prefer not to say</option>
         </select>
         <select name="hostel_${i}" required>
           <option value="">Hostel</option>
