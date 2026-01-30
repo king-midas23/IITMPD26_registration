@@ -1,9 +1,10 @@
 const countInput = document.getElementById("count");
 const container = document.getElementById("participants");
 const form = document.getElementById("regForm");
-const submitBtn = form.querySelector('button[type="submit"]');
+const submitBtn = document.getElementById("submitBtn");
 
-// Dynamically generate participant fields with card styling
+// 1. Dynamic UI Generation
+// This creates the rounded-edge cards where name and dropdowns share a row
 countInput.addEventListener("input", () => {
   const n = parseInt(countInput.value);
   container.innerHTML = "";
@@ -14,17 +15,17 @@ countInput.addEventListener("input", () => {
     container.innerHTML += `
       <div class="participant-card">
         <h4>Participant ${i}</h4>
-        <div class="form-group">
+        <div class="input-row">
           <input name="name_${i}" placeholder="Full Name" required>
-        </div>
-        <div class="form-group" style="display: flex; gap: 10px;">
-          <select name="gender_${i}" required style="flex: 1;">
+          
+          <select name="gender_${i}" required>
             <option value="">Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
-          <select name="hostel_${i}" required style="flex: 1;">
+          
+          <select name="hostel_${i}" required>
             <option value="">Hostel</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
@@ -35,21 +36,20 @@ countInput.addEventListener("input", () => {
   }
 });
 
-// Handle Form Submission
+// 2. Form Submission Logic
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // 1. Show Loading State
+  // Show loading state on the button
   const originalBtnText = submitBtn.innerText;
   submitBtn.disabled = true;
-  submitBtn.innerText = "Submitting... Please wait";
-  submitBtn.style.opacity = "0.7";
-  submitBtn.style.cursor = "not-allowed";
+  submitBtn.innerText = "SUBMITTING...";
 
   const college = form.college.value;
   const n = parseInt(countInput.value);
   const participants = [];
 
+  // Collect participant data
   for (let i = 1; i <= n; i++) {
     participants.push({
       name: form[`name_${i}`].value,
@@ -58,35 +58,37 @@ form.addEventListener("submit", async (e) => {
     });
   }
 
+  // Use URLSearchParams to avoid CORS 'Preflight' (OPTIONS) blocks
   const formData = new URLSearchParams();
   formData.append("college", college);
   formData.append("participants", JSON.stringify(participants));
 
   try {
-    // Replace with your LATEST deployment URL
-    await fetch("https://script.google.com/macros/s/AKfycbxKyvrskkOQcE69rQxi7vDhGB-gDZJR_-k5_9r_eab0Jc7uC6QfCLl20J7RwFqRFwWjTQ/exec", {
+    // IMPORTANT: Ensure this matches your LATEST Google Apps Script Deployment URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxKyvrskkOQcE69rQxi7vDhGB-gDZJR_-k5_9r_eab0Jc7uC6QfCLl20J7RwFqRFwWjTQ/exec";
+
+    await fetch(scriptURL, {
       method: "POST",
-      mode: "no-cors",
+      mode: "no-cors", // Required for Google Apps Script
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: formData.toString()
     });
 
-    alert("Registration for " + college + " submitted successfully!");
+    // Success Handling
+    alert("Registration for " + college + " has been recorded!");
     
-    // Reset form and UI
+    // Clear the form
     form.reset();
     container.innerHTML = "";
     
   } catch (error) {
     console.error("Submission Error:", error);
-    alert("There was an error. Please check your internet and try again.");
+    alert("An error occurred. Please check your connection and try again.");
   } finally {
-    // 2. Restore Button State
+    // Restore button state
     submitBtn.disabled = false;
     submitBtn.innerText = originalBtnText;
-    submitBtn.style.opacity = "1";
-    submitBtn.style.cursor = "pointer";
   }
 });
