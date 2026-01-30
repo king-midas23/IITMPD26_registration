@@ -65,7 +65,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     // IMPORTANT: Ensure this matches your LATEST Google Apps Script Deployment URL
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxkWaO0YgYy7AbLUuuinqZ2jFRb7G4jq7iCE1z0UFYqFxjnawCyFH8i9G4mZpGPmJYakw/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbybs2dkJ75UFfz6NDRZj8puZPUhcpwKnc11eE5cOKY_YA6tb7Tap_oWzWMqcZvYnFzRRg/exec";
 
     await fetch(scriptURL, {
       method: "POST",
