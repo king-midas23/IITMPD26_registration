@@ -57,24 +57,17 @@ form.addEventListener("submit", async (e) => {
       name: form[`name_${i}`].value,
       gender: form[`gender_${i}`].value,
       hostel: form[`hostel_${i}`].value
-    
-    
     });
-    
   }
 
- const response = await fetch("https://script.google.com/macros/s/AKfycbxKyvrskkOQcE69rQxi7vDhGB-gDZJR_-k5_9r_eab0Jc7uC6QfCLl20J7RwFqRFwWjTQ/exec", {
+  await fetch("https://script.google.com/macros/s/AKfycbxKyvrskkOQcE69rQxi7vDhGB-gDZJR_-k5_9r_eab0Jc7uC6QfCLl20J7RwFqRFwWjTQ/exec", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    mode: "no-cors",
     body: JSON.stringify({ college, participants })
   });
-
-  const result = await response.text();
-  console.log(result);
 
   alert("Registration submitted!");
   form.reset();
   container.innerHTML = "";
 });
+
