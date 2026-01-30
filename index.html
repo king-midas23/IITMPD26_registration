@@ -109,4 +109,67 @@
 
     button {
       width: 100%;
-      background-color: var(--rust-red
+      background-color: var(--rust-red);
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      font-family: inherit;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #8a3022;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+      .input-row > * {
+        min-width: 100%; /* Stacks fully on very small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>IITM PD 2026</h2>
+  
+  <form id="regForm">
+    <div class="form-group">
+      <label for="college">College / University</label>
+      <input type="text" name="college" id="college" placeholder="Enter Institution Name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="count">Number of Participants</label>
+      <input type="number" id="count" min="1" placeholder="e.g. 3" required>
+    </div>
+
+    <div id="participants">
+      </div>
+
+    <button type="submit" id="submitBtn">Submit Registration</button>
+  </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
